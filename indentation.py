@@ -1,4 +1,6 @@
+import utime
 print("Loop starting")
-for i in range(10):
-    print("Loop number", i)
+while True:
+    print("Loop running!")
+    utime.sleep(1)
 print("Loop finished!")
