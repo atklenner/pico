@@ -24,10 +24,25 @@ def delay_time():
     time.sleep(bpm_conversion(dial.read_u16()) / 4)
     time.sleep(bpm_conversion(dial.read_u16()) / 4)
 
-# Next I need to put 10 pins into an array and stop copy-pasting
-while True:
+# go though each LED from 0 to 9
+def sequence():
     for led in leds:
         led.value(1)
         delay_time()
         led.value(0)
+
+# go through each LED 0 through 9 then back to 1
+def knight_rider():
+    for led in leds:
+        led.value(1)
+        delay_time()
+        led.value(0)
+    for i in range(8, 0, -1):
+        leds[i].value(1)
+        delay_time()
+        leds[i].value(0)
+        
+# Next I need to put 10 pins into an array and stop copy-pasting
+while True:
+    knight_rider()
 
