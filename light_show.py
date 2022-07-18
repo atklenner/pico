@@ -12,9 +12,9 @@ half_time = Pin(14, Pin.IN, Pin.PULL_DOWN)
 def bpm_conversion(value):
     bpm = 220 * (value / 65535) + 30
     if half_time.value() == 1:
-        return 120 / bpm
-    else:
         return 60 / bpm
+    else:
+        return 30 / bpm
 
 # 4ppqn
 def delay_time():
