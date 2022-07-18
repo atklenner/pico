@@ -1,9 +1,10 @@
 from machine import Pin, ADC
 import time
 
-led1 = Pin(0, Pin.OUT)
-led2 = Pin(1, Pin.OUT)
-led3 = Pin(2, Pin.OUT)
+leds = []
+for i in range(10):
+    leds.append(Pin(i, Pin.OUT))
+
 dial = ADC(28)
 half_time = Pin(14, Pin.IN, Pin.PULL_DOWN)
 
@@ -25,13 +26,8 @@ def delay_time():
 
 # Next I need to put 10 pins into an array and stop copy-pasting
 while True:
-    led1.value(1)
-    delay_time()
-    led1.value(0)
-    led2.value(1)
-    delay_time()
-    led2.value(0)
-    led3.value(1)
-    delay_time()
-    led3.value(0)
+    for led in leds:
+        led.value(1)
+        delay_time()
+        led.value(0)
 
