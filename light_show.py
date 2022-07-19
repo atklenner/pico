@@ -1,4 +1,5 @@
 from machine import Pin, ADC
+from random import randint
 import time
 
 leds = []
@@ -25,7 +26,7 @@ def delay_time():
     time.sleep(bpm_conversion(dial.read_u16()) / 4)
 
 # go though each LED from 0 to 9
-def sequence():
+def forward_sequence():
     for led in leds:
         led.value(1)
         delay_time()
@@ -41,8 +42,17 @@ def knight_rider():
         leds[i].value(1)
         delay_time()
         leds[i].value(0)
-        
+   
+# randomly select LEDs
+def random_sequence():
+    rand = randint(0, 9)
+    leds[rand].value(1)
+    delay_time()
+    leds[rand].value(0)
+
 # Next I need to put 10 pins into an array and stop copy-pasting
 while True:
-    knight_rider()
+    random_sequence()
+
+
 
