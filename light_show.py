@@ -1,4 +1,3 @@
-from lib2to3.pgen2.token import NUMBER
 from machine import Pin, ADC
 from random import randint
 from time import sleep
@@ -34,10 +33,6 @@ def delay_time():
 # go though each LED from 0 to 9
 def forward_sequence():
     global current_pin
-    #for led in leds:
-        #led.value(1)
-        #delay_time()
-        #led.value(0)
     leds[current_pin].value(1)
     delay_time()
     leds[current_pin].value(0)
@@ -64,7 +59,6 @@ def random_sequence():
     delay_time()
     leds[rand].value(0)
 
-# Next I need to put 10 pins into an array and stop copy-pasting
 while True:
     forward_sequence()
 
