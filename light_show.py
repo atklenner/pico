@@ -67,8 +67,20 @@ def random_sequence():
     rand = randint(0, NUMBER_OF_LEDS - 1)
     blink_LED(rand)
     
+# resets the sequence
+def button_handler(pin):
+    global reset
+    reset = True
+
+reset_button.irq(trigger=Pin.IRQ_RISING, handler=button_handler)
+
 while True:
+    if reset:
+        current_pin = 0
+        reset = False
     forward_sequence()
+
+
 
 
 
