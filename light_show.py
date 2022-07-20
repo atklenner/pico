@@ -13,6 +13,12 @@ half_time = Pin(14, Pin.IN, Pin.PULL_DOWN)
 reset_button = Pin(13, Pin.IN, Pin.PULL_DOWN)
 current_pin = 0
 reverse = False
+reset = False
+
+def blink_LED(pin):
+    leds[pin].value(1)
+    delay_time()
+    leds[pin].value(0)
 
 # converts ADC output to how long a beat is in seconds
 def bpm_conversion(value):
@@ -33,9 +39,7 @@ def delay_time():
 # go though each LED from 0 to 9
 def forward_sequence():
     global current_pin
-    leds[current_pin].value(1)
-    delay_time()
-    leds[current_pin].value(0)
+    blink_LED(current_pin)
     if current_pin == NUMBER_OF_LEDS - 1:
         current_pin = 0
     else:
@@ -43,26 +47,28 @@ def forward_sequence():
     
 # go through each LED 0 through 9 then back to 1
 def knight_rider():
-    for led in leds:
-        led.value(1)
-        delay_time()
-        led.value(0)
-    for i in range(8, 0, -1):
-        leds[i].value(1)
-        delay_time()
-        leds[i].value(0)
+    global current_pin
+    global reverse
+    blink_LED(current_pin)
+    # there probably exists a better way to write this
+    if reverse and current_pin > 0:
+        current_pin -= 1
+    elif current_pin == NUMBER_OF_LEDS - 1:
+        reverse = True
+        current_pin -= 1
+    elif current_pin == 0:
+        reverse = False
+        current_pin += 1
+    else:
+        current_pin += 1
    
 # randomly select LEDs
 def random_sequence():
     rand = randint(0, NUMBER_OF_LEDS - 1)
-    leds[rand].value(1)
-    delay_time()
-    leds[rand].value(0)
-
+    blink_LED(rand)
+    
 while True:
     forward_sequence()
-
-
 
 
 
